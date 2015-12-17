@@ -1,0 +1,26 @@
+{
+  "name": "rollup-loader",
+  "version": "0.0.0",
+  "description": "Rollup does what it can, and let Webpack finish the job.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/egoist/rollup-loader.git"
+  },
+  "keywords": [
+    "rollup",
+    "webpack",
+    "loader",
+    "bundle",
+    "js"
+  ],
+  "author": "EGOIST <0x142857@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/egoist/rollup-loader/issues"
+  },
+  "homepage": "https://github.com/egoist/rollup-loader#readme"
+}

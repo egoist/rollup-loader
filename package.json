@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "description": "Rollup does what it can, and let Webpack finish the job.",
   "main": "index.js",
+  "files": [
+    "index.js"
+  ],
   "scripts": {
     "test": "mocha tests/test-*.js"
   },

@@ -4,7 +4,9 @@ var fs = require('fs')
 var expect = require('expect.js')
 var mkdirp = require('mkdirp')
 var rimraf = require('rimraf')
-var requireFromString = require('require-from-string')
+
+global.document = require('jsdom').jsdom('<body></body>')
+global.window = document.defaultView
 
 describe('loader', function () {
   var rollupLoader = path.resolve(__dirname, '../')
@@ -33,6 +35,10 @@ describe('loader', function () {
             test: /\.js$/,
             loader: rollupLoader,
             exclude: [/node_modules/]
+          },
+          {
+            test: /\.css$/,
+            loaders: ['style', 'css']
           }
         ]
       }
@@ -43,8 +49,7 @@ describe('loader', function () {
         return console.log(stats.toJson())
       }
       var file = fs.readFileSync(path.join(outputDir, 'bundle.js'), 'utf8')
-      console.log(requireFromString(file))
-      expect(requireFromString(file).hostname).to.equal('github.com')
+      expect(file.indexOf('10px') !== -1).to.be(true)
       done()
     })
   })

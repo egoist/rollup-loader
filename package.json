@@ -4,7 +4,7 @@
   "description": "Rollup does what it can, and let Webpack finish the job.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha tests/test-*.js"
   },
   "repository": {
     "type": "git",
@@ -22,5 +22,21 @@
   "bugs": {
     "url": "https://github.com/egoist/rollup-loader/issues"
   },
-  "homepage": "https://github.com/egoist/rollup-loader#readme"
+  "homepage": "https://github.com/egoist/rollup-loader#readme",
+  "devDependencies": {
+    "css-loader": "^0.23.1",
+    "expect.js": "^0.3.1",
+    "jsdom": "^9.2.1",
+    "mkdirp": "^0.5.1",
+    "mocha": "^2.3.4",
+    "require-from-string": "^1.1.0",
+    "rimraf": "^2.4.4",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.12.9"
+  },
+  "dependencies": {
+    "loader-utils": "^0.2.15",
+    "rollup": "^0.31.1",
+    "rollup-plugin-memory": "^1.0.0"
+  }
 }

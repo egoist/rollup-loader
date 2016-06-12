@@ -1,6 +1,6 @@
 {
   "name": "rollup-loader",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "description": "Rollup does what it can, and let Webpack finish the job.",
   "main": "index.js",
   "files": [

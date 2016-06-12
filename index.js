@@ -8,13 +8,15 @@ module.exports = function (source, inputSourceMap) {
   var webpackRemainingChain = loaderUtils.getRemainingRequest(this).split('!')
   var filename = webpackRemainingChain[webpackRemainingChain.length - 1]
   
+  var plugins = this.options.rollup || []
+
   var rollupConfig = {
     entry: filename,
     plugins: [
       memory({
         contents: source
       })
-    ],
+    ].concat(plugins),
     external(id) {
       return !(/\.(js|es6)$/.test(id))
     }

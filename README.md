@@ -1,8 +1,10 @@
 # rollup-loader
 
-[WIP] Coming soon.
+Status: experimental
 
 ## Example
+
+Webpack 1:
 
 ```javascript
 module: {
@@ -22,6 +24,25 @@ rollup: [
 ]
 // or use babel-loader if you like
 // loaders: ['rollup', 'babel']
+```
+
+Webpack 2:
+
+```javascript
+module: {
+  rules: [
+    {
+      test: /\.js$/,
+      loader: 'rollup-loader',
+      exclude: [/node_modules/],
+      options: {
+        plugins: [
+          require('rollup-plugin-babel')({})
+        ]
+      }
+    }
+  ]
+}
 ```
 
 ## License

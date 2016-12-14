@@ -24,7 +24,7 @@ export default function (source, inputSourceMap) {
   const rollupOptions = this.options.rollup
   if (rollupOptions) {    
     if (Array.isArray(rollupOptions)) {
-      rollupConfig.plugins = rollupConfig.plugins.concat(plugins)
+      rollupConfig.plugins = rollupConfig.plugins.concat(rollupOptions)
     } else {
       rollupConfig.plugins = rollupConfig.plugins.concat(rollupOptions.plugins)
       delete rollupOptions.plugins

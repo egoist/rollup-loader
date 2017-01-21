@@ -6,41 +6,31 @@ export default function (source, inputSourceMap) {
   const cb = this.async()
 
   const webpackRemainingChain = loaderUtils.getRemainingRequest(this).split('!')
-  const filename = webpackRemainingChain[webpackRemainingChain.length - 1]
-  
+  const filename = webpackRemainingChain.pop()
+
   const rollupConfig = {
     entry: {
       path: filename,
       contents: source
     },
-    plugins: [
-      memory()
-    ],
     external(id) {
-      return !(/\.(js|es6)$/.test(id))
+      return !/\.(?:js|es6)$/.test(id)
     }
   }
 
-  const rollupOptions = this.options.rollup
-  if (rollupOptions) {    
-    if (Array.isArray(rollupOptions)) {
-      rollupConfig.plugins = rollupConfig.plugins.concat(rollupOptions)
-    } else {
-      rollupConfig.plugins = rollupConfig.plugins.concat(rollupOptions.plugins)
-      delete rollupOptions.plugins
-      Object.assign(rollupConfig, rollupOptions)
-    }
-  }
+  const parsed = this.options.rollup || loaderUtils.parseQuery(this.query)
+  const options = Array.isArray(parsed) ? { plugins: parsed } : parsed
+
+  Object.assign(rollupConfig, options)
+  rollupConfig.plugins = [memory(), ...options.plugins || []]
 
   this.cacheable()
 
   rollup
     .rollup(rollupConfig)
     .then(bundle => {
-      const result = bundle.generate({
-        format: 'cjs'
-      })
-      cb(null, result.code, result.map)
+      const { code, map } = bundle.generate({ format: 'cjs' })
+      cb(null, code, map)
     })
     .catch(cb)
 }

@@ -41,7 +41,10 @@ describe('loader', function () {
             loaders: ['style', 'css']
           }
         ]
-      }
+      },
+      rollup: [
+        {}
+      ]
     }
     webpack(config, function(err, stats) {
       expect(err).to.be(null)

@@ -1,6 +1,6 @@
 # rollup-loader
 
-[![NPM version](https://img.shields.io/npm/v/rollup-loader.svg?style=flat)](https://npmjs.com/package/rollup-loader-client) [![Build Status](https://img.shields.io/circleci/project/egoist/rollup-loader/master.svg?style=flat)](https://circleci.com/gh/egoist/rollup-loader)
+[![NPM version](https://img.shields.io/npm/v/rollup-loader.svg?style=flat)](https://npmjs.com/package/rollup-loader) [![Build Status](https://img.shields.io/circleci/project/egoist/rollup-loader/master.svg?style=flat)](https://circleci.com/gh/egoist/rollup-loader)
 
 ## How does it work
 

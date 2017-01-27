@@ -45,7 +45,9 @@ It uses the [rollup-plugin-memory](https://github.com/TrySound/rollup-plugin-mem
   rollup: [
     require('rollup-plugin-babel')({
       exclude: 'node_modules/**',
-      preset: ['es2015-rollup']
+      preset: [
+        ['es2015', { modules: false }]
+      ]
     })
   ]
 }

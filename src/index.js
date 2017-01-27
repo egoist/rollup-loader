@@ -11,7 +11,7 @@ export default function (contents) {
   }
 
   const plugins = this.options.rollup || loaderUtils.parseQuery(this.query)
-  const options = Array.isArray(parsed) ? { plugins } : plugins
+  const options = Array.isArray(plugins) ? { plugins } : plugins
 
   Object.assign(rollupConfig, options)
   rollupConfig.plugins = [memory(), ...options.plugins || []]

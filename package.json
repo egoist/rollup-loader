@@ -7,7 +7,7 @@
     "index.js"
   ],
   "scripts": {
-    "test": "npm run build && mocha tests/test-*.js",
+    "test": "npm run build && mocha test/test-*.js",
     "build": "rollup -c rollup.config.js"
   },
   "repository": {

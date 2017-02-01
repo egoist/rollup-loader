@@ -10,11 +10,16 @@ export default function (contents) {
     external: RegExp().test.bind(/^(.(?!\.(js|es)$))*$/)
   }
 
-  const plugins = this.options.rollup || loaderUtils.parseQuery(this.query)
-  const options = Array.isArray(plugins) ? { plugins } : plugins
+  const config = loaderUtils.getLoaderConfig(this, 'rollup')
+  const options = this.options.rollup
+  const plugins = config.plugins || (config.plugins = [])
 
-  Object.assign(rollupConfig, options)
-  rollupConfig.plugins = [memory(), ...options.plugins || []]
+  if (Array.isArray(options)) {
+    options.forEach((value, index) => delete config[index])
+    plugins.push(...options)
+  }
+  plugins.unshift(memory())
+  Object.assign(rollupConfig, config)
 
   this.cacheable()
 

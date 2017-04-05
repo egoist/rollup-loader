@@ -8,67 +8,17 @@ It uses the [rollup-plugin-memory](https://github.com/TrySound/rollup-plugin-mem
 
 ## Usage
 
-### Webpack 2
-
-```javascript
-{
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        loader: 'rollup-loader',
-        exclude: [/node_modules/],
-        options: {
-          plugins: [
-            require('rollup-plugin-babel')({})
-          ]
-        }
-      }
-    ]
-  }
-}
-```
-
-### Webpack 1
-
-```javascript
-{
-  module: {
-    loaders: [
-      {
-        test: /\.js$/,
-        loaders: ['rollup'],
-        exclude: [/node_modules/]
-      }
-    ],
-  },
-  rollup: [
-    require('rollup-plugin-babel')({
-      exclude: 'node_modules/**',
-      preset: [
-        ['es2015', { modules: false }]
-      ]
-    })
-  ]
-}
-// or use babel-loader if you like
-// loaders: ['rollup', 'babel']
-```
-
-### Use full rollup options
-
-When you set the rollup option to an array, it will be used as rollup plugins. Otherwise it will be passed directly to rollup:
-
 ```js
-// webpack 1
-// for example
-// do not bundle these files through rollup
-// it only bundles .js and .es6 files by default
+// webpack.config.js
 module.exports = {
-  rollup: {
-    external(id) {
-      return !(/\.(js|es6|jsx)$/.test(id))
-    }
+  module: {
+    rules: [{
+      test: /\.js$/,
+      loader: 'rollup-loader',
+      options: [/* custom rollup plugins */]
+      // or directly pass rollup options
+      // options: { plugins: [] }
+    }]
   }
 }
 ```

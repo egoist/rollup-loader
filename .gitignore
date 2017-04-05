@@ -1,5 +1,5 @@
 # build
-/tests/output
+/test/output
 node_modules
 *.log
 .DS_Store

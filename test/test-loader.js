@@ -30,21 +30,17 @@ describe('loader', function () {
         libraryTarget: 'commonjs2'
       },
       module: {
-        loaders: [
+        rules: [
           {
             test: /\.js$/,
-            loader: rollupLoader,
-            exclude: [/node_modules/]
+            loader: rollupLoader
           },
           {
             test: /\.css$/,
-            loaders: ['style', 'css']
+            loaders: ['style-loader', 'css-loader']
           }
         ]
-      },
-      rollup: [
-        {}
-      ]
+      }
     }
     webpack(config, function(err, stats) {
       expect(err).to.be(null)

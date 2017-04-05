@@ -9,7 +9,10 @@ function ensureObjectShape(obj) {
 export default function (contents) {
   const cb = this.async()
 
-  const path = loaderUtils.getRemainingRequest(this).split('!').pop()
+  const path = loaderUtils.getRemainingRequest(this)
+    .split('!')
+    .pop()
+    .replace(/\?.*$/, '')
 
   const rollupConfig = {
     entry: {
@@ -31,7 +34,6 @@ export default function (contents) {
     rollupConfig.plugins.push(...loaderOptions.plugins)
     delete loaderOptions.plugins
   }
-
   // Get sourceMap option
   const sourceMap = loaderOptions.sourceMap === undefined ? this.sourceMap : loaderOptions.sourceMap
   delete loaderOptions.sourceMap

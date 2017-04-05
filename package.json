@@ -8,7 +8,8 @@
   ],
   "scripts": {
     "test": "npm run build && mocha test/test-*.js",
-    "build": "rollup -c rollup.config.js"
+    "build": "rollup -c rollup.config.js",
+    "watch": "rollup -c rollup.config.js --watch"
   },
   "repository": {
     "type": "git",
@@ -36,12 +37,13 @@
     "require-from-string": "^1.2.1",
     "rimraf": "^2.6.1",
     "rollup-plugin-buble": "^0.15.0",
+    "rollup-watch": "^3.2.2",
     "style-loader": "^0.16.1",
     "webpack": "^2.3.3"
   },
   "dependencies": {
     "loader-utils": "^1.1.0",
-    "rollup": "^0.37.0",
+    "rollup": "^0.41.6",
     "rollup-plugin-memory": "^2.0.0"
   }
 }

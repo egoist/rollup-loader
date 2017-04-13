@@ -22,6 +22,13 @@ function setCache(globalOptions, query, value) {
   globalOptionsCache.set(query, value)
 }
 
+function declareDependency(compiler, id) {
+  // skip plugin helper modules
+  if (/\0/.test(id)) return
+
+  compiler.dependency(id)
+}
+
 export default function (contents) {
   const cb = this.async()
 
@@ -63,21 +70,23 @@ export default function (contents) {
 
   rollup
     .rollup(rollupConfig)
-    .then(bundle => {
-      setCache(this.options.rollup, this.query, bundle)
+    .then(
+      bundle => {
+        setCache(this.options.rollup, this.query, bundle)
+        bundle.modules.forEach(module => {
+          declareDependency(this, module.id)
+        })
 
-      bundle.modules.forEach(({ id }) => {
-        // skip plugin helper modules
-        if (/\0/.test(id)) return
-
-        this.dependency(id)
-      })
-
-      const { code, map } = bundle.generate({ 
-        format: 'cjs',
-        sourceMap
-      })
-      cb(null, code, map)
-    })
+        const { code, map } = bundle.generate({ 
+          format: 'cjs',
+          sourceMap
+        })
+        cb(null, code, map)
+      },
+      error => {
+        if (error.id) declareDependency(this, error.id)
+        throw error
+      }
+    )
     .catch(cb)
 }

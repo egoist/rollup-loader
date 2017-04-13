@@ -6,6 +6,22 @@ function ensureObjectShape(obj) {
   return Array.isArray(obj) ? { plugins: obj } : obj
 }
 
+const caches = new Map()
+
+function getCache(globalOptions, query) {
+  const globalOptionsCache = caches.get(globalOptions)
+  return globalOptionsCache && globalOptionsCache.get(query)
+}
+
+function setCache(globalOptions, query, value) {
+  let globalOptionsCache = caches.get(globalOptions)
+  if (!globalOptionsCache) {
+    globalOptionsCache = new Map()
+    caches.set(globalOptions, globalOptionsCache)
+  }
+  globalOptionsCache.set(query, value)
+}
+
 export default function (contents) {
   const cb = this.async()
 
@@ -42,9 +58,21 @@ export default function (contents) {
 
   this.cacheable()
 
+  const cache = getCache(this.options.rollup, this.query)
+  if (cache) rollupConfig.cache = cache
+
   rollup
     .rollup(rollupConfig)
     .then(bundle => {
+      setCache(this.options.rollup, this.query, bundle)
+
+      bundle.modules.forEach(({ id }) => {
+        // skip plugin helper modules
+        if (/\0/.test(id)) return
+
+        this.dependency(id)
+      })
+
       const { code, map } = bundle.generate({ 
         format: 'cjs',
         sourceMap
